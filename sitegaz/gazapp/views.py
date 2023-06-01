@@ -2,9 +2,10 @@
 # Create your views here.
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.response import Response
 
 from .models import Data
-from .serializers import DataSerializer
+from .serializers import DataSerializer, DataAddSerializer
 
 
 def list_datas(request):
@@ -16,3 +17,23 @@ class DataViewSet(viewsets.ModelViewSet):
     queryset = Data.objects.all()
     serializer_class = DataSerializer
 
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return DataAddSerializer
+        return DataSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = DataAddSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        capteur = serializer.validated_data['capteur']
+        data_list = serializer.validated_data['data']
+
+        instances = []
+
+        for data in data_list:
+            date = data['d']
+            value = data['v']
+            instance = Data.objects.create(capteur=capteur, date=date, value=value)
+            instances.append(instance)
+        return Response(DataSerializer(instances, many=True).data)
