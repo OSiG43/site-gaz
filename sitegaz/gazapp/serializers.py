@@ -6,10 +6,11 @@ from .models import Data
 class DataSerializer(serializers.ModelSerializer):
     t = serializers.DateTimeField(source='date', format="%Y-%m-%d %H:%M:%S")
     v = serializers.FloatField(source='value')
+    c = serializers.CharField(source='capteur')
 
     class Meta:
         model = Data
-        fields = ('id', 'capteur', 't', 'v')
+        fields = ('id', 'c', 't', 'v')
 
 
 class DataAddSerializer(serializers.Serializer):

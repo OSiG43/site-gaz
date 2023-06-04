@@ -37,6 +37,7 @@
     <table>
         <thead>
             <tr>
+                <th>Capteur</th>
                 <th>Date</th>
                 <th>Valeur</th>
             </tr>
@@ -44,6 +45,7 @@
         <tbody id="data-table-body">
             {% for data in datas %}
             <tr>
+                <td>{{ data.capteur }}</td>
                 <td>{{ data.date }}</td>
                 <td>{{ data.value }}</td>
             </tr>
@@ -68,12 +70,15 @@
                     // Ajouter les nouvelles données dans le tableau
                     responseData.forEach(function(data) {
                         var row = document.createElement('tr');
+                        var capteurCell = document.createElement('td');
                         var dateCell = document.createElement('td');
                         var valueCell = document.createElement('td');
 
-                        dateCell.textContent = data.d;
+                        capteurCell.textContent = data.c;
+                        dateCell.textContent = data.t;
                         valueCell.textContent = data.v;
 
+                        row.appendChild(capteurCell);
                         row.appendChild(dateCell);
                         row.appendChild(valueCell);
 
