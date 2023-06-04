@@ -4,17 +4,17 @@ from .models import Data
 
 
 class DataSerializer(serializers.ModelSerializer):
-    d = serializers.DateTimeField(source='date', format="%Y-%m-%d %H:%M:%S")
+    t = serializers.DateTimeField(source='date', format="%Y-%m-%d %H:%M:%S")
     v = serializers.FloatField(source='value')
 
     class Meta:
         model = Data
-        fields = ('id', 'capteur', 'd', 'v')
+        fields = ('id', 'capteur', 't', 'v')
 
 
 class DataAddSerializer(serializers.Serializer):
-    capteur = serializers.CharField(max_length=200)
-    data = serializers.ListField(child=serializers.DictField())
+    c = serializers.CharField(max_length=200) # Capteur mac adresse field
+    d = serializers.ListField(child=serializers.DictField()) # data array field
 
 
 

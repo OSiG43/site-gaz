@@ -26,13 +26,13 @@ class DataViewSet(viewsets.ModelViewSet):
         serializer = DataAddSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        capteur = serializer.validated_data['capteur']
-        data_list = serializer.validated_data['data']
+        capteur = serializer.validated_data['c']
+        data_list = serializer.validated_data['d']
 
         instances = []
 
         for data in data_list:
-            date = data['d']
+            date = data['t']
             value = data['v']
             instance = Data.objects.create(capteur=capteur, date=date, value=value)
             instances.append(instance)
