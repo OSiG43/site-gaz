@@ -17,3 +17,5 @@ Les données doivent être au format suivant :
         ],
 }
 ```
+
+ATTENTION: il ne s'agit absolument d'un example de bonne pratique, le but de ce serveur est uniquement de faire des tests.
